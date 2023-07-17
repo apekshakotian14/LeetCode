@@ -1,20 +1,13 @@
 class Solution {
     public int maxProfit(int[] prices) {
         int sum = 0;
-        int valley = Integer.MAX_VALUE;
-        int peak = valley;
         
-        for(int i=0; i<prices.length; i++){
-            if(prices[i] < peak){
-                sum += peak - valley;
-                
-                valley = prices[i];
-                peak = valley;
-            } else{
-                peak = prices[i];
+        for(int i=1; i<prices.length; i++){
+            if(prices[i] > prices[i-1]){
+                sum += prices[i] - prices[i-1];
             }
         }
-        sum += peak - valley;
+        
         return sum;
     }
 }
