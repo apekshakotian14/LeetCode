@@ -11,22 +11,22 @@ class Solution {
                 list.add(matrix[top][j]);
             }
             top++;
-            if(left <= right && top <= bottom){
+
             //bottom
-                for(int i=top; i<=bottom; i++){
-                    list.add(matrix[i][right]);
-                }
-                right--;
+            for(int i=top; i<=bottom; i++){
+                list.add(matrix[i][right]);
             }
+            right--;
+            
             //right
-            if(left <= right && top <= bottom){
+            if(top <= bottom){
                 for(int j=right; j>=left; j--){
                     list.add(matrix[bottom][j]);
                 }
                 bottom--;
             }
             //left
-            if(left <= right && top <= bottom){
+            if(left <= right){
                 for(int i=bottom; i>=top; i--){
                 list.add(matrix[i][left]);
             }
