@@ -26,7 +26,9 @@ class Solution {
             return false;
         }
         prev = root;
+        if(left == false) return false;
         boolean right = inorder(root.right);
+        
         return left && right;
     }
     
