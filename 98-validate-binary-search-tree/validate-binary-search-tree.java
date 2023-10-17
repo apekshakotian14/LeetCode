@@ -14,26 +14,20 @@
  * }
  */
 class Solution {
-    boolean flag;
     TreeNode prev;
     public boolean isValidBST(TreeNode root) {
-        this.flag = true;
-        inorder(root);
-        return flag;
+        return inorder(root);
     }
-    private void inorder(TreeNode root){
-        if(root == null) return;
-        if(flag){
-            inorder(root.left);
-        }
+    private boolean inorder(TreeNode root){
+        if(root == null) return true;
+        boolean left = inorder(root.left);
         
         if(prev != null && prev.val >= root.val){
-            flag = false;
+            return false;
         }
         prev = root;
-        if(flag){
-            inorder(root.right);
-        }
+        boolean right = inorder(root.right);
+        return left && right;
     }
     
 }
