@@ -21,15 +21,15 @@ class Solution {
     private boolean inorder(TreeNode root){
         if(root == null) return true;
         boolean left = inorder(root.left);
-        
+        if(left == false) return false;
         if(prev != null && prev.val >= root.val){
             return false;
         }
         prev = root;
-        if(left == false) return false;
+        
         boolean right = inorder(root.right);
         
-        return left && right;
+        return right;
     }
     
 }
