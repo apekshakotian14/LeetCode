@@ -28,8 +28,13 @@ class Solution {
         if(max != null && root.val>=max){
             this.flag = false;
         }
-        helper(root.left, min, root.val);
-        helper(root.right, root.val, max);
+        if(flag){
+            helper(root.left, min, root.val);
+        }
+        if(flag){
+            helper(root.right, root.val, max);
+        }
+        
     }
     
 }
