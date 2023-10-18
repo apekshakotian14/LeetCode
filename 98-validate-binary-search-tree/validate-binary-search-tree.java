@@ -29,8 +29,9 @@ class Solution {
         }
         
         boolean left = helper(root.left, min, root.val);
+        if(left == false) return false;
         boolean right = helper(root.right, root.val, max);
-        return left && right;
+        return right;
         
     }
     
