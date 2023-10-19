@@ -26,13 +26,14 @@ class Solution {
 
         currSum += root.val;
         path.add(root.val);
-        helper(root.left, currSum, targetSum, new ArrayList<>(path));
-        helper(root.right, currSum, targetSum, new ArrayList<>(path));
+        helper(root.left, currSum, targetSum, path);
+        helper(root.right, currSum, targetSum, path);
         if(root.left == null && root.right == null){
             if(currSum == targetSum){
-                result.add(path);
+                result.add(new ArrayList<>(path));
             }
         }
+        path.remove(path.size() - 1);
 
     }
 }
