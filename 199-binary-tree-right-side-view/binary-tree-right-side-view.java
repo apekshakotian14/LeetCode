@@ -25,9 +25,11 @@ class Solution {
             if(root == null) return;
             if(level == result.size()){
                 result.add(root.val);
+            }else{
+                result.set(level, root.val);
             }
             
-            dfs(root.right, level+1);
             dfs(root.left, level+1);
+            dfs(root.right, level+1);
         }
 }
