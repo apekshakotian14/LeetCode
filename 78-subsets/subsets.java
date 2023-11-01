@@ -1,19 +1,17 @@
 class Solution {
-    List<List<Integer>> result;
-    public List<List<Integer>> subsets(int[] nums) {
-        this.result = new ArrayList<>();
-        helper(nums, 0, new ArrayList<Integer>());
-        return result;
-    }
-
-    private void helper(int[] nums, int pivot, List<Integer> path){
-        result.add(new ArrayList<>(path));
-
-        for(int i=pivot; i<nums.length; i++){
-            path.add(nums[i]);
-            helper(nums, i+1, path);
-            path.remove(path.size() - 1);
-        }
     
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        result.add(new ArrayList<>());
+        for(int i=0; i<nums.length; i++){
+            int size = result.size();
+            for(int j=0; j<size; j++){
+                List<Integer> li = new ArrayList<>(result.get(j));
+                li.add(nums[i]);
+                result.add(li);
+            }
+        }
+        return result;
+
     }
 }
