@@ -6,14 +6,14 @@ class Solution {
         return result;
     }
 
-    private void helper(int[] nums, int index, List<Integer> path){
-        if(index == nums.length){
-            result.add(new ArrayList<>(path));
-            return;
+    private void helper(int[] nums, int pivot, List<Integer> path){
+        result.add(new ArrayList<>(path));
+
+        for(int i=pivot; i<nums.length; i++){
+            path.add(nums[i]);
+            helper(nums, i+1, path);
+            path.remove(path.size() - 1);
         }
-        helper(nums, index+1, path);
-        path.add(nums[index]);
-        helper(nums, index+1, path);
-        path.remove(path.size() - 1);
+    
     }
 }
