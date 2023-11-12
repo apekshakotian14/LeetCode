@@ -3,7 +3,8 @@ class Solution {
         int m = matrix.length;
         int n = matrix[0].length;
 
-        int low = matrix[0][0], high = matrix[m-1][n-1];
+        int low = matrix[0][0];
+        int high = matrix[m-1][n-1];
 
         while (low <= high) {
             int mid = low + (high - low) / 2;
