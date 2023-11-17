@@ -1,24 +1,43 @@
-import java.math.BigInteger;
 class Solution {
     public int strStr(String haystack, String needle) {
         int m = haystack.length();
         int n = needle.length();
-        if(n > m) return -1;
-        BigInteger hash1 = BigInteger.ZERO;
-        BigInteger k = BigInteger.valueOf(26);
-        for(int i=0; i<n ;i++){
-            char c = needle.charAt(i);
-            hash1 = hash1.multiply(k).add(BigInteger.valueOf(c - 'a' + 1));
-        }
-        BigInteger hash2 = BigInteger.ZERO;
-        for(int i=0; i<m; i++){
-            if(i>=n){
-                hash2 = hash2.mod(k.pow(n-1));
+        if(n>m) return -1;
+        int[] lps = lps(needle);
+        int i=0; int j=0;
+        while(i<m){
+            if(haystack.charAt(i) == needle.charAt(j)){
+                i++; j++;
+                if(j==n){
+                    return i-n;
+                }
+            }else if(j>0 && haystack.charAt(i) != needle.charAt(j)){
+                j = lps[j-1];
+            }else if(j==0 && haystack.charAt(i) != needle.charAt(j)){
+                i++;
             }
-            char b = haystack.charAt(i);
-            hash2 = hash2.multiply(k).add(BigInteger.valueOf(b - 'a' + 1));
-            if(hash1.equals(hash2)) return i-n+1;
         }
         return -1;
+    }
+
+    private int[] lps(String needle){
+        int[] lps = new int[needle.length()];
+        lps[0] = 0;
+        int i=1, j=0;
+        while(i<needle.length()){
+            char chj = needle.charAt(j);
+            char chi = needle.charAt(i);
+            if(chj == chi){
+                j++;
+                lps[i] = j;
+                i++;
+            }else if(j>0 && chj!=chi){
+                j = lps[j-1];
+            }else if(j==0 && chj != chi){
+                lps[i] = 0;
+                i++;
+            }
+        }
+        return lps;
     }
 }
