@@ -18,25 +18,25 @@ class Solution {
         flattenTree(root);
     }
 
-    private TreeNode flattenTree(TreeNode node) {
-        if (node == null) {
+    private TreeNode flattenTree(TreeNode root) {
+        if (root == null) {
             return null;
         }
-        TreeNode leftLast = flattenTree(node.left);
-        TreeNode rightLast = flattenTree(node.right);
-        TreeNode tempRight = node.right;
-        if (leftLast != null) {
-            node.right = node.left;
-            node.left = null;
-            leftLast.right = tempRight;
+        TreeNode leftchild = flattenTree(root.left);
+        TreeNode rightchild = flattenTree(root.right);
+        TreeNode temp = root.right;
+        if (leftchild != null) {
+            root.right = root.left;
+            root.left = null;
+            leftchild.right = temp;
         }
 
-        if (rightLast != null) {
-            return rightLast;
-        } else if (leftLast != null) {
-            return leftLast;
+        if (rightchild != null) {
+            return rightchild;
+        } else if (leftchild != null) {
+            return leftchild;
         } else {
-            return node;
+            return root;
         }
     }
 }
