@@ -14,27 +14,29 @@
  * }
  */
 class Solution {
-    ArrayList<TreeNode> list;
     public void flatten(TreeNode root) {
-        if(root==null) return;
-        list=new ArrayList<>();
-        preorder(root);
-        retriveFromList();
+        flattenTree(root);
     }
-    
-    public void preorder(TreeNode root){
-        if(root==null) return;
-        list.add(root);
-        preorder(root.left);
-        preorder(root.right);
-    }
-    
-    public TreeNode retriveFromList(){
-        for(int i=0;i<list.size()-1;i++){
-            TreeNode ele =list.get(i);
-            ele.left=null;
-            ele.right=list.get(i+1);
+
+    private TreeNode flattenTree(TreeNode node) {
+        if (node == null) {
+            return null;
         }
-        return list.get(0);
+        TreeNode leftLast = flattenTree(node.left);
+        TreeNode rightLast = flattenTree(node.right);
+        TreeNode tempRight = node.right;
+        if (leftLast != null) {
+            node.right = node.left;
+            node.left = null;
+            leftLast.right = tempRight;
+        }
+
+        if (rightLast != null) {
+            return rightLast;
+        } else if (leftLast != null) {
+            return leftLast;
+        } else {
+            return node;
+        }
     }
 }
