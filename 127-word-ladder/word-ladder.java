@@ -1,47 +1,43 @@
 class Solution {
+
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        if (!wordList.contains(endWord)) {
+            return 0;
+        }
 
-        
-        int L = beginWord.length();
+        Set<String> wordSet = new HashSet<>(wordList);
+        Set<String> set = new HashSet<>();
 
-        // Queue for BFS
-        Queue<Pair<String, Integer>> Q = new LinkedList<>();
-        Q.add(new Pair<>(beginWord, 1));
+        Queue<Pair<String, Integer>> queue = new LinkedList<>();
+        queue.add(new Pair(beginWord, 1));
+        set.add(beginWord);
 
-        // Set to track visited words
-        Set<String> visited = new HashSet<>();
-        visited.add(beginWord);
-
-        while (!Q.isEmpty()) {
-            Pair<String, Integer> node = Q.remove();
-            String word = node.getKey();
+        while (!queue.isEmpty()) {
+            Pair<String, Integer> node = queue.poll();
+            String currentWord = node.getKey();
             int level = node.getValue();
 
-            for (String nextWord : wordList) {
-                if (!visited.contains(nextWord) && isOneLetterApart(word, nextWord)) {
-                    if (nextWord.equals(endWord)) {
-                        return level + 1;
+            for (int i = 0; i < currentWord.length(); i++) {
+                char[] wordChars = currentWord.toCharArray();
+
+                for (char c = 'a'; c <= 'z'; c++) {
+                    wordChars[i] = c;
+                    String newWord = new String(wordChars);
+
+                    if (wordSet.contains(newWord)) {
+                        if (newWord.equals(endWord)) {
+                            return level + 1;
+                        }
+
+                        if (!set.contains(newWord)) {
+                            set.add(newWord);
+                            queue.add(new Pair(newWord, level + 1));
+                        }
                     }
-                    visited.add(nextWord);
-                    Q.add(new Pair<>(nextWord, level + 1));
                 }
             }
         }
 
         return 0;
-    }
-
-    // Helper function to check if two words are one letter apart
-    private boolean isOneLetterApart(String word1, String word2) {
-        int diffCount = 0;
-        for (int i = 0; i < word1.length(); i++) {
-            if (word1.charAt(i) != word2.charAt(i)) {
-                diffCount++;
-                if (diffCount > 1) {
-                    return false;
-                }
-            }
-        }
-        return diffCount == 1;
     }
 }
