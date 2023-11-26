@@ -4,18 +4,15 @@ class Solution {
         if (!wordList.contains(endWord)) {
             return 0;
         }
-
         Set<String> wordSet = new HashSet<>(wordList);
         Set<String> set = new HashSet<>();
-
         Queue<Pair<String, Integer>> queue = new LinkedList<>();
         queue.add(new Pair(beginWord, 1));
         set.add(beginWord);
-
         while (!queue.isEmpty()) {
             Pair<String, Integer> node = queue.poll();
             String currentWord = node.getKey();
-            int level = node.getValue();
+            int count = node.getValue(); // Rename level to count
 
             for (int i = 0; i < currentWord.length(); i++) {
                 char[] wordChars = currentWord.toCharArray();
@@ -26,12 +23,12 @@ class Solution {
 
                     if (wordSet.contains(newWord)) {
                         if (newWord.equals(endWord)) {
-                            return level + 1;
+                            return count + 1;
                         }
 
                         if (!set.contains(newWord)) {
                             set.add(newWord);
-                            queue.add(new Pair(newWord, level + 1));
+                            queue.add(new Pair(newWord, count + 1)); 
                         }
                     }
                 }
