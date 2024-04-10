@@ -10,11 +10,12 @@ class Solution {
             charArray[t.charAt(i) - 'a']--;
         }
 
-        for(int count: charArray){
-            if(count != 0){
+        for (int count: charArray){
+            if(count > 0){
                 return false;
             }
         }
+
         return true;
 
     }
