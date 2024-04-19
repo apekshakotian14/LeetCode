@@ -10,9 +10,7 @@ class Solution {
             int curr = nums[i];
             int temp = Math.max(curr, Math.max(max * curr, min * curr));
             min = Math.min(curr, Math.min(max * curr, min * curr));
-
             max = temp;
-
             result = Math.max(max, result);
         }
 
