@@ -1,43 +1,18 @@
 class Solution {
     public int strStr(String haystack, String needle) {
-        int m = haystack.length();
-        int n = needle.length();
-        if(n>m) return -1;
-        int[] lps = lps(needle);
-        int i=0; int j=0;
-        while(i<m){
-            if(haystack.charAt(i) == needle.charAt(j)){
-                i++; j++;
-                if(j==n){
-                    return i-n;
+        if(needle.length()==0){
+            return 0;
+        }
+        if(haystack == null || needle == null || haystack.length() < needle.length()){
+            return -1;
+        }
+        for(int i=0; i<haystack.length() - needle.length() + 1; i++){
+            if(haystack.charAt(i) == needle.charAt(0)){
+                if(haystack.substring(i, needle.length() + i).equals(needle)){
+                    return i;
                 }
-            }else if(j>0 && haystack.charAt(i) != needle.charAt(j)){
-                j = lps[j-1];
-            }else if(j==0 && haystack.charAt(i) != needle.charAt(j)){
-                i++;
             }
         }
         return -1;
-    }
-
-    private int[] lps(String needle){
-        int[] lps = new int[needle.length()];
-        lps[0] = 0;
-        int i=1, j=0;
-        while(i<needle.length()){
-            char chj = needle.charAt(j);
-            char chi = needle.charAt(i);
-            if(chj == chi){
-                j++;
-                lps[i] = j;
-                i++;
-            }else if(j>0 && chj!=chi){
-                j = lps[j-1];
-            }else if(j==0 && chj != chi){
-                lps[i] = 0;
-                i++;
-            }
-        }
-        return lps;
     }
 }
